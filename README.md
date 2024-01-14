@@ -33,6 +33,7 @@ Afterward start up the venv:
 Within the virtual environment, install the requirements:
 ```
 pip install -r requirements.txt
+pip3 install torch --index-url https://download.pytorch.org/whl/cu121
 ```
 Now you can go onto Running
 
@@ -48,6 +49,7 @@ source /path/to/venv/bin/activate
 Within the virtual environment, install the requirements:
 ```
 pip install -r requirements.txt
+pip3 install torch --index-url https://download.pytorch.org/whl/cu121
 ```
 Now you can go onto Running
 

@@ -1,0 +1,5 @@
+base_url: 'url' # The target LLM backend
+model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ' # The model used to compress
+branch: 'main' # Branch to use
+device: 'cuda' # Device environment (e.g., 'cuda', 'cpu', 'mps')
+target_token: 500 

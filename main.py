@@ -18,7 +18,7 @@ scraper = cloudscraper.create_scraper()
 
 async def _reverse_proxy_get(request: Request):
     rp_resp = scraper.get(config['base_url'] + request.url.path)
-    return Response(rp_resp.content,
+    return Response(gzip.compress(rp_resp.content),
                     status_code=rp_resp.status_code,
                     headers=rp_resp.headers, )
 

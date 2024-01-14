@@ -1,7 +1,20 @@
 # LLMLinguaMITM
-This is a proof of concept of a small server that sits inbetween your frontend and LLM backend and compresses prompts using LLMLingua.
+This is a proof of concept of a small server that sits inbetween your frontend and LLM backend and compresses prompts using [LLMLingua](https://github.com/microsoft/LLMLingua).
 
 Right now the tested environment is intercepting communication between SillyTavern and oobabooga's Text Generation WebUI.
+
+# Disclaimer
+This was whipped up within a few hours, there are no guarantees that it will work as expected, work at all, or not explode your PC.
+
+I take no responsibility for what happens and have only conducted a limited amount of testing after I got it to work.
+
+## Requirements
+By default, this software requires:
+```
+Nvidia GPU with at least 6 GB VRAM (as it runs CUDA using TheBloke/Llama-2-7b-Chat-GPTQ)
+```
+
+Other methods have not been tested yet. For further information go here: [LLMLingua Docs](https://github.com/microsoft/LLMLingua/blob/main/DOCUMENT.md)
 
 ## Installation
 
@@ -54,4 +67,8 @@ Simply run the command:
 ```
 python -m uvicorn main:app --host 0.0.0.0 --port 8080 
 ```
-Within SillyTavern, set this as your target API: Text Completion and Default (oobabooga)
+Within SillyTavern, set this as your target API: 
+```
+Text Completion
+Default (oobabooga)
+```

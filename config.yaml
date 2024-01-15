@@ -1,7 +1,7 @@
 base_url: 'url'
-model_name: 'TheBloke/Mistral-7B-Instruct-v0.2-GPTQ'
+model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ'
 branch: 'main'
-device: 'cuda:0'
+device: 'auto'
 ratio: 0.5
-rank_method: 'longllmlingua'
+rank_method: 'llmlingua'
 keep_split: True

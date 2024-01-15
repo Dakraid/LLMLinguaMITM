@@ -6,7 +6,9 @@ ratio: 0.5 # What the compression ratio should be
 rank_method: 'llmlingua' # See LLMLingua Docs for more info
 keep_split: True # Keep newlines intact?
 # Experimental
-split_instruction: false # Should instructions be split from the prompt and processed separately?
-instruction_regex: '(### Instruction)(.|\n)*?(?=### Response)' # The Regex to get the full instruction set without Response
+sentence_level_filter: false # Currently broken
+force_context: false # Currently broken
+split_instruction: true # Should instructions be split from the prompt and processed separately?
+instruction_regex: '(### Instruction)(.|\n)*?(?=### Response|### Input|\[Summary:)' # The Regex to get the full instruction set without Response
 
 # See the files 'ST Context Template - Netrve Alpaca.json' and 'ST Instruct Template - Netrve Alpaca.json' for how my setup looks like

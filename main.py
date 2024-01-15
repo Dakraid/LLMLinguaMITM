@@ -1,5 +1,6 @@
 import gzip
 import json
+import re
 import zlib
 
 import cloudscraper
@@ -52,14 +53,28 @@ async def _reverse_proxy_completions(request: Request):
         json.dump(request_body, input_file, indent=4)
         input_file.close()
 
-    split_prompts = request_body['prompt'].splitlines()
+    if config['split_instruction']:
+        pattern = re.compile(config['instruction_regex'], re.MULTILINE)
+        match = pattern.search(request_body['prompt'])
+        start, end = match.span()
+        instruction = request_body['prompt'][start:end]
+        split_prompts = request_body['prompt'][end:].splitlines()
 
-    compressed_prompt = llm_lingua.compress_prompt(split_prompts,
-                                                   instruction='',
-                                                   question='',
-                                                   ratio=config['ratio'],
-                                                   rank_method=config['rank_method'],
-                                                   keep_split=config['keep_split'])
+        compressed_prompt = llm_lingua.compress_prompt(split_prompts,
+                                                       instruction=instruction,
+                                                       question='',
+                                                       ratio=config['ratio'],
+                                                       rank_method=config['rank_method'],
+                                                       keep_split=config['keep_split'])
+    else:
+        split_prompts = request_body['prompt'].splitlines()
+
+        compressed_prompt = llm_lingua.compress_prompt(split_prompts,
+                                                       instruction='',
+                                                       question='',
+                                                       ratio=config['ratio'],
+                                                       rank_method=config['rank_method'],
+                                                       keep_split=config['keep_split'])
 
     with open('compression.json', 'w') as compression_file:
         json.dump(compressed_prompt, compression_file, indent=4)

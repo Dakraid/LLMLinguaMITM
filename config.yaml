@@ -1,7 +1,10 @@
-base_url: 'url'
-model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ'
-branch: 'main'
-device: 'auto'
-ratio: 0.5
-rank_method: 'llmlingua'
-keep_split: True
+base_url: 'url' # URL of your actual LLM backend
+model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ' # The model used for processing
+branch: 'main' # What branch to use from HuggingFace
+device: 'auto' # What device to select, see LLMLingua Docs for more info
+ratio: 0.5 # What the compression ratio should be
+rank_method: 'llmlingua' # See LLMLingua Docs for more info
+keep_split: True # Keep newlines intact?
+# Experimental
+split_instruction: false # Should instructions be split from the prompt and processed separately?
+instruction_regex: '(### Instruction)(.|\\n)*?(?=### Response)' # The Regex to get the full instruction set without Response

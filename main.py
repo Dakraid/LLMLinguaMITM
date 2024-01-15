@@ -23,6 +23,7 @@ if config['sentence_level_filter']:
 syncClient = httpx.Client(base_url=config['base_url'])
 asyncClient = httpx.AsyncClient(base_url=config['base_url'])
 scraper = cloudscraper.create_scraper()
+llm_lingua = PromptCompressor(config['model_name'], model_config={'revision': config['branch']})
 
 
 def create_response(orig_request, api_response: requests) -> Response:
@@ -48,7 +49,6 @@ async def _reverse_proxy_post(request: Request):
 
 async def _reverse_proxy_completions(request: Request):
     request_body = await request.json()
-    llm_lingua = PromptCompressor(config['model_name'], model_config={'revision': config['branch']})
 
     with open('input.json', 'w') as input_file:
         json.dump(request_body, input_file, indent=4)

@@ -7,3 +7,4 @@ starlette
 optimum
 auto-gptq
 uvicorn
+nltk

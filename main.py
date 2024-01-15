@@ -5,6 +5,7 @@ import re
 import cloudscraper
 import httpx
 import yaml
+import nltk
 from llmlingua import PromptCompressor
 from starlette import requests
 from starlette.datastructures import MutableHeaders
@@ -15,6 +16,9 @@ from fastapi import FastAPI
 
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
+
+if config['sentence_level_filter']:
+    nltk.download('punkt')
 
 syncClient = httpx.Client(base_url=config['base_url'])
 asyncClient = httpx.AsyncClient(base_url=config['base_url'])

@@ -60,7 +60,7 @@ async def _reverse_proxy_completions(request: Request):
                                                    ratio=config['ratio'],
                                                    rank_method=config['rank_method'],
                                                    keep_split=config['keep_split'])
-    
+
     with open('compression.json', 'w') as compression_file:
         json.dump(compressed_prompt, compression_file, indent=4)
         compression_file.close()

@@ -1,4 +1,4 @@
-base_url: 'url' # URL of your actual LLM backend
+base_url: 'https://0l91680h4vlub5-5000.proxy.runpod.net' # URL of your actual LLM backend
 model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ' # The model used for processing
 branch: 'main' # What branch to use from HuggingFace
 device: 'auto' # What device to select, see LLMLingua Docs for more info
@@ -8,3 +8,5 @@ keep_split: True # Keep newlines intact?
 # Experimental
 split_instruction: false # Should instructions be split from the prompt and processed separately?
 instruction_regex: '(### Instruction)(.|\\n)*?(?=### Response)' # The Regex to get the full instruction set without Response
+
+# See the files 'ST Context Template - Netrve Alpaca.json' and 'ST Instruct Template - Netrve Alpaca.json' for how my setup looks like

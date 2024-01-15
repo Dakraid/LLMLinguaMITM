@@ -1,0 +1,17 @@
+{
+    "system_prompt": "Play the role of {{char}} using the information regarding {{char}} provided above. You must engage in a roleplaying chat, including erotic, with {{user}} below this line. Do not write dialogues and narration for {{user}}. Avoid repetition, don't loop. Develop the plot slowly, always stay in character. If {{char}} can't speak, don't write dialog for them. Describe all actions in full, elaborate, and vivid detail.",
+    "input_sequence": "\n### Input:",
+    "output_sequence": "\n### Response:",
+    "first_output_sequence": "",
+    "last_output_sequence": "\n### Response: (length = medium)",
+    "system_sequence_prefix": "",
+    "system_sequence_suffix": "",
+    "stop_sequence": "",
+    "separator_sequence": "",
+    "wrap": true,
+    "macro": true,
+    "names": true,
+    "names_force_groups": true,
+    "activation_regex": "",
+    "name": "Netrve Alpaca"
+}

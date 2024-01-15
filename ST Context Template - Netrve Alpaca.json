@@ -1,0 +1,11 @@
+{
+    "story_string": "### Instruction: \nWrite {{char}}'s next reply in a fictional roleplay chat between {{user}} and {{char}}. \nUse the provided character sheet and example dialogue for formatting direction and character speech patterns.\n\n{{#if wiBefore}} {{wiBefore}} {{/if}}\n\n{{#if description}}Description of {{char}}: {{description}} {{/if}}\n\n{{#if personality}}{{char}}'s personality: {{personality}} {{/if}}\n\n{{#if scenario}}Scenario: {{scenario}} {{/if}}\n\n{{#if persona}}Description of {{user}}: {{persona}} {{/if}}\n\nPlay the role of {{char}}\n\n{{#if wiAfter}} {{wiAfter}} {{/if}}\n\n{{#if system}} {{system}} {{/if}}\n",
+    "example_separator": "",
+    "chat_start": "",
+    "use_stop_strings": false,
+    "always_force_name2": true,
+    "trim_sentences": false,
+    "include_newline": false,
+    "single_line": false,
+    "name": "Netrve Alpaca"
+}

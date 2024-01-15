@@ -1,6 +1,9 @@
-cloudscraper==1.2.71
-fastapi==0.109.0
-httpx==0.26.0
-llmlingua==0.1.5
-PyYAML==6.0.1
-starlette==0.35.1
+cloudscraper
+fastapi
+httpx
+llmlingua
+PyYAML
+starlette
+optimum
+auto-gptq
+uvicorn

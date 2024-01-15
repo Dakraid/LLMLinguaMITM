@@ -1,8 +1,12 @@
 import gzip
+import json
+import zlib
+
 import cloudscraper
 import httpx
 import yaml
 from llmlingua import PromptCompressor
+from starlette.datastructures import MutableHeaders
 
 from starlette.requests import Request
 from starlette.responses import Response
@@ -18,28 +22,61 @@ scraper = cloudscraper.create_scraper()
 
 async def _reverse_proxy_get(request: Request):
     rp_resp = scraper.get(config['base_url'] + request.url.path)
-    return Response(gzip.compress(rp_resp.content),
+    compressed_content = gzip.compress(rp_resp.content)
+    new_header = MutableHeaders(rp_resp.headers)
+    new_header['content-length'] = str(len(compressed_content))
+    rp_resp.headers = new_header
+    request.scope.update(headers=request.headers.raw)
+    return Response(compressed_content,
                     status_code=rp_resp.status_code,
                     headers=rp_resp.headers, )
 
 
 async def _reverse_proxy_post(request: Request):
     rp_resp = scraper.post(config['base_url'] + request.url.path, await request.body())
-    return Response(gzip.compress(rp_resp.content),
+    compressed_content = gzip.compress(rp_resp.content)
+    new_header = MutableHeaders(rp_resp.headers)
+    new_header['content-length'] = str(len(compressed_content))
+    rp_resp.headers = new_header
+    request.scope.update(headers=request.headers.raw)
+    return Response(compressed_content,
                     status_code=rp_resp.status_code,
                     headers=rp_resp.headers, )
 
 
 async def _reverse_proxy_completions(request: Request):
     request_body = await request.json()
-    llm_lingua = PromptCompressor(config['model_name'], model_config={'revision': config['branch']}, device_map=config['device'])
-    compressed_prompt = llm_lingua.compress_prompt(request_body['prompt'],
+    llm_lingua = PromptCompressor(config['model_name'], model_config={'revision': config['branch']})
+
+    with open('input.json', 'w') as input_file:
+        json.dump(request_body, input_file, indent=4)
+        input_file.close()
+
+    split_prompts = request_body['prompt'].splitlines()
+
+    compressed_prompt = llm_lingua.compress_prompt(split_prompts,
                                                    instruction='',
                                                    question='',
-                                                   target_token=config['target_token'])
+                                                   ratio=config['ratio'],
+                                                   keep_split=True)
+    
+    with open('compression.json', 'w') as compression_file:
+        json.dump(compressed_prompt, compression_file, indent=4)
+        compression_file.close()
+
     request_body['prompt'] = compressed_prompt['compressed_prompt']
+
+    with open('output.json', 'w') as output_file:
+        json.dump(request_body, output_file, indent=4)
+        output_file.close()
+
     rp_resp = scraper.post(config['base_url'] + request.url.path, json=request_body)
-    return Response(gzip.compress(rp_resp.content),
+    compressed_content = gzip.compress(rp_resp.content)
+    new_header = MutableHeaders(rp_resp.headers)
+    new_header['content-length'] = str(len(compressed_content))
+    rp_resp.headers = new_header
+    request.scope.update(headers=request.headers.raw)
+    return Response(compressed_content,
                     status_code=rp_resp.status_code,
                     headers=rp_resp.headers, )
 

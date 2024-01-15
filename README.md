@@ -32,8 +32,8 @@ Afterward start up the venv:
 ```
 Within the virtual environment, install the requirements:
 ```
+pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
-pip3 install torch --index-url https://download.pytorch.org/whl/cu121
 ```
 Now you can go onto Running
 
@@ -48,8 +48,8 @@ source /path/to/venv/bin/activate
 ```
 Within the virtual environment, install the requirements:
 ```
+pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
-pip3 install torch --index-url https://download.pytorch.org/whl/cu121
 ```
 Now you can go onto Running
 
@@ -61,7 +61,7 @@ base_url: 'url' # The target LLM backend
 model_name: 'TheBloke/Llama-2-7b-Chat-GPTQ' # The model used to compress
 branch: 'main' # Branch to use
 device: 'cuda' # Device environment (e.g., 'cuda', 'cpu', 'mps')
-target_token: 500 # What the target output length should be, might be changed to take it from the request
+ratio: 0.5 # Compression ratio for the prompt
 ```
 
 ## Running

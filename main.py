@@ -56,9 +56,13 @@ async def _reverse_proxy_completions(request: Request):
     if config['split_instruction']:
         pattern = re.compile(config['instruction_regex'], re.MULTILINE)
         match = pattern.search(request_body['prompt'])
-        start, end = match.span()
-        instruction = request_body['prompt'][start:end]
-        split_prompts = request_body['prompt'][end:].splitlines()
+        if match:
+            start, end = match.span()
+            instruction = request_body['prompt'][start:end]
+            split_prompts = request_body['prompt'][end:].splitlines()
+        else:
+            instruction = ''
+            split_prompts = request_body['prompt'].splitlines()
 
         compressed_prompt = llm_lingua.compress_prompt(split_prompts,
                                                        instruction=instruction,
